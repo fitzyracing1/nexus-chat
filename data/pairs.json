@@ -1,0 +1,42 @@
+[
+  {
+    "prompt": "What is Nexus AI?",
+    "answer": "Nexus AI is a Claude-style assistant that runs in your browser. You can chat in offline echo/demo mode using loaded prompt and answer pairs, or paste your own API key for an OpenAI-compatible or Anthropic-compatible provider."
+  },
+  {
+    "prompt": "What is pairs load?",
+    "answer": "Pairs load imports matched prompt and answer pairs from a JSON or CSV file. Those pairs become few-shot context when a model is called, and they are the source of answers in offline demo mode. A sample file lives at data/pairs.json."
+  },
+  {
+    "prompt": "What is circle the drain?",
+    "answer": "Circle the drain is a growth move: you open campaign windows for users and for developers. Developers build, users join, and that brings more developers. The campaign panel tracks windows, signups, and that loop."
+  },
+  {
+    "prompt": "How do I use my own API key?",
+    "answer": "Open Settings, choose OpenAI-compatible or Anthropic-compatible, set the base URL and model, and paste your key. The key stays in this browser's localStorage and is sent only to the provider you configured. It is never stored in the Nexus AI repository."
+  },
+  {
+    "prompt": "Hello",
+    "answer": "Hello. I am Nexus AI, running in your browser. Ask me about pairs load, campaign windows, or how to connect a model, or just start a conversation."
+  },
+  {
+    "prompt": "Who made this?",
+    "answer": "Nexus AI was made by Joshua Almeida. Copyright (c) 2026 Joshua Almeida. It is licensed under the MIT License."
+  },
+  {
+    "prompt": "How do I run Nexus AI?",
+    "answer": "Open index.html in a browser, or serve this folder with any static file server. There is no build step. After the site files are on the main branch, GitHub Pages can be turned on from the repository Settings, using the main branch and the root folder."
+  },
+  {
+    "prompt": "Where is my API key stored?",
+    "answer": "Your API key is stored only in this browser's localStorage. It is sent only to the provider URL you enter in Settings. Nexus AI does not keep a server-side copy, and the project does not ship any keys in its source."
+  },
+  {
+    "prompt": "Why is this in demo mode?",
+    "answer": "Offline echo/demo mode is on because no API key is saved in Settings. In this mode I answer from loaded pairs by matching your message to a prompt. Add a key if you want to call a model, or load more pairs to teach the demo more answers."
+  },
+  {
+    "prompt": "How do campaign windows work?",
+    "answer": "Create a window with a name, start date, end date, and an audience of users or developers. Log each signup against that window. The panel shows counts per window and a loop view: developers build, users join, more developers follow. You can export or import the data as JSON."
+  }
+]

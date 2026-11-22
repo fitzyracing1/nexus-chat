@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Nexus AI is a Claude-style assistant that runs in the browser.">
+  <title>Nexus AI</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2312110f'/%3E%3Ccircle cx='16' cy='16' r='9' fill='none' stroke='%23e2a34a' stroke-width='2'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%23e2a34a'/%3E%3C/svg%3E">
+</head>
+<body>
+  <button type="button" id="menu-toggle" class="menu-toggle" aria-label="Open menu">Menu</button>
+  <div class="shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <svg class="logo" viewBox="0 0 32 32" aria-hidden="true">
+          <circle cx="16" cy="16" r="11" fill="none" stroke="currentColor" stroke-width="1.6"></circle>
+          <path d="M16 5.5 A10.5 10.5 0 0 1 26.5 16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"></path>
+          <circle cx="16" cy="16" r="3.2" fill="currentColor"></circle>
+        </svg>
+        <div>
+          <h1>Nexus AI</h1>
+          <p class="tag">In-browser assistant</p>
+        </div>
+      </div>
+      <div id="mode-badge" class="mode-badge demo">Offline echo/demo</div>
+      <nav class="nav" aria-label="Main">
+        <button type="button" data-panel="chat">Chat</button>
+        <button type="button" data-panel="pairs">Pairs load</button>
+        <button type="button" data-panel="campaigns">Circle the drain</button>
+        <button type="button" data-panel="settings">Settings</button>
+      </nav>
+      <p class="sidebar-foot">Keys stay in this browser. Nothing is stored in the repo.</p>
+    </aside>
+
+    <main class="main">
+      <section id="panel-chat" class="panel chat-panel">
+        <div id="chat-banner" class="banner demo" role="status"></div>
+        <div id="messages" class="messages" aria-live="polite"></div>
+        <form id="chat-form" class="composer-wrap">
+          <label class="sr-only" for="composer">Message</label>
+          <textarea id="composer" rows="1" placeholder="Write a message"></textarea>
+          <div class="composer-actions">
+            <button type="button" id="clear-chat-btn" class="btn subtle">Clear chat</button>
+            <button type="submit" id="send-btn" class="btn primary">Send</button>
+          </div>
+        </form>
+      </section>
+
+      <section id="panel-pairs" class="panel" hidden>
+        <header class="panel-head">
+          <h2>Pairs load</h2>
+          <p>Import matched prompt and answer pairs from JSON or CSV. They become few-shot context for a model, and they are the answers in offline demo mode.</p>
+        </header>
+        <div class="toolbar">
+          <span id="pairs-status" class="status-chip">No pairs loaded</span>
+          <button type="button" id="load-sample-btn" class="btn">Load sample</button>
+          <label class="btn file-btn">
+            Load file
+            <input id="pairs-file" type="file" accept=".json,.csv,application/json,text/csv">
+          </label>
+          <button type="button" id="clear-pairs-btn" class="btn subtle">Clear pairs</button>
+        </div>
+        <div id="pairs-list" class="card-list"></div>
+      </section>
+
+      <section id="panel-campaigns" class="panel" hidden>
+        <header class="panel-head">
+          <h2>Circle the drain</h2>
+          <p>Open campaign windows for users and developers, log signups, and watch the loop: developers build, users join, more developers follow.</p>
+        </header>
+        <div id="campaign-loop" class="loop" aria-label="Growth loop"></div>
+        <div class="split">
+          <form id="campaign-form" class="card form-card">
+            <h3>New window</h3>
+            <label>
+              Name
+              <input id="campaign-name" type="text" required maxlength="80" placeholder="Spring developer push">
+            </label>
+            <div class="row">
+              <label>
+                Start date
+                <input id="campaign-start" type="date" required>
+              </label>
+              <label>
+                End date
+                <input id="campaign-end" type="date" required>
+              </label>
+            </div>
+            <label>
+              Audience
+              <select id="campaign-audience">
+                <option value="developers">Developers</option>
+                <option value="users">Users</option>
+              </select>
+            </label>
+            <button type="submit" class="btn primary">Create window</button>
+          </form>
+          <form id="signup-form" class="card form-card">
+            <h3>Log a signup</h3>
+            <label>
+              Window
+              <select id="signup-window" required></select>
+            </label>
+            <label>
+              Name or note
+              <input id="signup-note" type="text" maxlength="80" placeholder="Optional">
+            </label>
+            <button type="submit" class="btn primary">Add signup</button>
+          </form>
+        </div>
+        <div class="toolbar">
+          <button type="button" id="export-campaigns" class="btn">Export JSON</button>
+          <button type="button" id="import-campaigns" class="btn">Import JSON</button>
+          <input id="import-campaigns-file" type="file" accept=".json,application/json" hidden>
+        </div>
+        <div id="campaign-list" class="card-list"></div>
+      </section>
+
+      <section id="panel-settings" class="panel" hidden>
+        <header class="panel-head">
+          <h2>Settings</h2>
+          <p>Paste your own API key if you want to call a model. The key is stored only in localStorage and is sent only to the provider URL you set. Leave it empty to stay in offline echo/demo mode.</p>
+        </header>
+        <div class="card form-card">
+          <label>
+            Provider
+            <select id="provider">
+              <option value="openai">OpenAI-compatible</option>
+              <option value="anthropic">Anthropic-compatible</option>
+            </select>
+          </label>
+          <label>
+            Base URL
+            <input id="base-url" type="url" placeholder="https://api.x.ai/v1" spellcheck="false">
+          </label>
+          <label>
+            Model
+            <input id="model" type="text" placeholder="grok-4" spellcheck="false">
+          </label>
+          <label>
+            API key
+            <span class="key-row">
+              <input id="api-key" type="password" autocomplete="off" spellcheck="false" placeholder="Stored only in this browser">
+              <button type="button" id="toggle-key" class="btn subtle">Show</button>
+            </span>
+          </label>
+          <div class="toolbar">
+            <button type="button" id="save-settings" class="btn primary">Save settings</button>
+            <button type="button" id="clear-key" class="btn subtle">Clear key</button>
+          </div>
+          <p id="settings-status" class="form-status" role="status"></p>
+          <p class="muted hint">Many providers block browser requests because of CORS. If a live call fails, the key may still be valid, and demo mode will keep working without a network call.</p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="js/sample-pairs.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/pairs.js"></script>
+  <script src="js/campaigns.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/chat.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
