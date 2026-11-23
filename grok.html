@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A separate Nexus AI page for chatting with Grok, xAI's model. Your API key stays in this browser and is sent only to api.x.ai.">
+  <title>Grok</title>
+  <link rel="stylesheet" href="grok.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2312110f'/%3E%3Ccircle cx='16' cy='16' r='9' fill='none' stroke='%23e2a34a' stroke-width='2'/%3E%3Cpath d='M11 20 L16 11 L21 20' fill='none' stroke='%23e2a34a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+</head>
+<body>
+  <div class="page">
+    <header class="top">
+      <div class="brand">
+        <svg class="logo" viewBox="0 0 32 32" aria-hidden="true">
+          <circle cx="16" cy="16" r="11" fill="none" stroke="currentColor" stroke-width="1.6"></circle>
+          <path d="M11 21 L16 10 L21 21" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+        <div>
+          <h1>Grok</h1>
+          <p class="tag">A separate page on the Nexus AI site</p>
+        </div>
+      </div>
+      <p class="intro">Chat with Grok, xAI's model, through the official xAI API. This page does not change the original Nexus AI site. The key you enter is stored only in this browser's localStorage and is sent only to api.x.ai.</p>
+    </header>
+
+    <aside id="grok-cors-note" class="notice" role="note">
+      <h2>About CORS</h2>
+      <p>This page calls xAI directly from your browser with <code>POST https://api.x.ai/v1/chat/completions</code>. The browser may block that call because of CORS. If it does, a readable error will appear in the chat log. A blocked browser call does not always mean the key is invalid.</p>
+    </aside>
+
+    <section class="settings" aria-labelledby="grok-settings-heading">
+      <h2 id="grok-settings-heading">Request settings</h2>
+      <div class="fields">
+        <label for="grok-model">
+          Model
+          <input id="grok-model" type="text" spellcheck="false" autocomplete="off" value="grok-4.7" placeholder="grok-4.7">
+        </label>
+        <label for="grok-api-key">
+          xAI API key
+          <span class="key-row">
+            <input id="grok-api-key" type="password" spellcheck="false" autocomplete="off" placeholder="Stored only in this browser">
+            <button type="button" id="grok-toggle-key" class="btn subtle">Show</button>
+          </span>
+        </label>
+      </div>
+      <div class="toolbar">
+        <label class="check" for="grok-stream">
+          <input id="grok-stream" type="checkbox" checked>
+          Stream the reply
+        </label>
+        <button type="button" id="grok-save-key" class="btn primary">Save key</button>
+        <button type="button" id="grok-clear-key" class="btn subtle">Clear key</button>
+      </div>
+      <p id="grok-status" class="status" role="status"></p>
+    </section>
+
+    <section class="chat" aria-labelledby="grok-chat-heading">
+      <div class="chat-head">
+        <h2 id="grok-chat-heading">Chat</h2>
+        <button type="button" id="grok-clear-chat" class="btn subtle">Clear chat</button>
+      </div>
+      <div id="grok-log" class="log" aria-live="polite"></div>
+      <form id="grok-form" class="composer">
+        <label class="sr-only" for="grok-composer">Message</label>
+        <textarea id="grok-composer" rows="1" placeholder="Write a message to Grok"></textarea>
+        <div class="composer-actions">
+          <button type="submit" id="grok-send" class="btn primary">Send</button>
+        </div>
+      </form>
+    </section>
+
+    <footer class="foot">
+      <p>Copyright (c) 2026 Joshua Almeida</p>
+    </footer>
+  </div>
+  <script src="grok.js"></script>
+</body>
+</html>
