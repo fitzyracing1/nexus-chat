@@ -1,0 +1,22 @@
+name: check-grok-page
+
+on:
+  push:
+    branches: [feat/grok-page]
+  pull_request:
+    branches: [feat/nexus-v0]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Validate the existing site files
+        run: node scripts/check.js
+      - name: Validate the Grok page
+        run: node scripts/check-grok-page.js

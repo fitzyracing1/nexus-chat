@@ -1,0 +1,363 @@
+/* Grok page — separate from the Nexus AI site styles */
+
+:root {
+  --bg: #12110f;
+  --bg-raise: #1b1916;
+  --ink: #f3eee4;
+  --muted: #9a9388;
+  --line: #2c2924;
+  --accent: #e2a34a;
+  --accent-ink: #1a1408;
+  --teal: #7eb6ad;
+  --danger: #d1725c;
+  --user: #2a241c;
+  --shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
+  --sans: ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --serif: ui-serif, "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --radius: 16px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+body {
+  background-image:
+    radial-gradient(1200px 500px at 10% -10%, rgba(226, 163, 74, 0.08), transparent 50%),
+    radial-gradient(900px 400px at 100% 0%, rgba(126, 182, 173, 0.06), transparent 45%);
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+h1,
+h2 {
+  font-family: var(--serif);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.88em;
+  word-break: break-all;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.page {
+  max-width: 52rem;
+  margin: 0 auto;
+  padding: 28px 20px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-height: 100vh;
+}
+
+.top {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.brand {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.logo {
+  width: 36px;
+  height: 36px;
+  color: var(--accent);
+  flex: none;
+}
+
+.brand h1 {
+  font-size: 1.6rem;
+}
+
+.tag,
+.foot,
+.muted,
+.intro {
+  color: var(--muted);
+}
+
+.tag {
+  font-size: 0.8rem;
+}
+
+.intro,
+.notice p {
+  max-width: 62ch;
+}
+
+.notice {
+  background: rgba(226, 163, 74, 0.1);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+}
+
+.notice h2 {
+  font-size: 1rem;
+  margin-bottom: 6px;
+}
+
+.settings,
+.chat {
+  background: var(--bg-raise);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 18px;
+  box-shadow: var(--shadow);
+}
+
+.settings h2,
+.chat-head h2 {
+  font-size: 1.15rem;
+}
+
+.settings h2 {
+  margin-bottom: 14px;
+}
+
+.fields {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 12px;
+}
+
+.settings label,
+.card label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.9rem;
+}
+
+.settings input[type="text"],
+.settings input[type="password"],
+#grok-composer {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 9px 11px;
+  width: 100%;
+}
+
+#grok-composer {
+  resize: none;
+  min-height: 44px;
+  max-height: 160px;
+  outline: none;
+}
+
+.key-row {
+  display: flex;
+  gap: 8px;
+}
+
+.key-row input {
+  flex: 1;
+}
+
+.toolbar,
+.composer-actions,
+.chat-head {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.toolbar {
+  margin-top: 14px;
+}
+
+.chat-head {
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.check {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-right: auto;
+  font-size: 0.9rem;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.btn {
+  appearance: none;
+  border: 1px solid var(--line);
+  background: #23211d;
+  color: var(--ink);
+  border-radius: 999px;
+  padding: 8px 14px;
+  cursor: pointer;
+}
+
+.btn:hover,
+.btn:focus-visible {
+  border-color: #4a453c;
+  outline: none;
+}
+
+.btn.primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+  font-weight: 650;
+}
+
+.btn.subtle {
+  background: transparent;
+}
+
+.btn:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.status {
+  min-height: 1.2em;
+  margin-top: 10px;
+  font-size: 0.9rem;
+}
+
+.status.ok {
+  color: var(--teal);
+}
+
+.status.error {
+  color: var(--danger);
+}
+
+.chat {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 28rem;
+}
+
+.log {
+  flex: 1;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 4px 0 16px;
+  min-height: 16rem;
+}
+
+.empty {
+  margin: auto;
+  text-align: center;
+  color: var(--muted);
+  max-width: 24rem;
+}
+
+.bubble {
+  max-width: 40rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  background: var(--bg);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.bubble.user {
+  margin-left: auto;
+  background: var(--user);
+}
+
+.bubble.error {
+  border-color: rgba(209, 114, 92, 0.5);
+  color: var(--danger);
+}
+
+.bubble .who {
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.bubble.pending .body {
+  color: var(--muted);
+  font-style: italic;
+}
+
+.composer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 12px 12px 10px;
+}
+
+.composer-actions {
+  justify-content: flex-end;
+}
+
+.foot {
+  font-size: 0.8rem;
+}
+
+@media (max-width: 700px) {
+  .page {
+    padding: 20px 14px 32px;
+  }
+
+  .fields {
+    grid-template-columns: 1fr;
+  }
+
+  .chat {
+    min-height: 22rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}
